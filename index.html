@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Portfolio de Jeux Vidéo</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>GameDev Portfolio</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Accueil</a></li>
+                <li><a href="#games" class="nav-link">Jeux</a></li>
+                <li><a href="#events" class="nav-link">Événements</a></li>
+                <li><a href="#blog" class="nav-link">Blog</a></li>
+                <li><a href="#gallery" class="nav-link">Galerie</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Bienvenue dans mon univers de jeux vidéo</h1>
+                <p>Découvrez mes créations, mes projets en cours et rejoignez ma communauté de développeurs passionnés</p>
+                <div class="hero-buttons">
+                    <a href="#games" class="btn btn-primary">Voir mes jeux</a>
+                    <a href="#contact" class="btn btn-secondary">Me contacter</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games" class="games-section">
+        <div class="container">
+            <h2 class="section-title">Mes Jeux</h2>
+            
+            <!-- Filter Buttons -->
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">Tous</button>
+                <button class="filter-btn" data-filter="finished">Finis</button>
+                <button class="filter-btn" data-filter="development">En développement</button>
+                <button class="filter-btn" data-filter="stopped">Arrêtés</button>
+            </div>
+
+            <!-- Games Grid -->
+            <div class="games-grid" id="gamesGrid">
+                <!-- Games will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="events-section">
+        <div class="container">
+            <h2 class="section-title">Événements</h2>
+            <div class="events-grid" id="eventsGrid">
+                <!-- Events will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="blog-section">
+        <div class="container">
+            <h2 class="section-title">Blog</h2>
+            <div class="blog-grid" id="blogGrid">
+                <!-- Blog posts will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section">
+        <div class="container">
+            <h2 class="section-title">Galerie</h2>
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Gallery images will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Contact</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Restons en contact</h3>
+                    <p>N'hésitez pas à me contacter pour toute question, collaboration ou proposition.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>contact@monportfolio.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-twitter"></i>
+                            <span>@monportfolio</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-discord"></i>
+                            <span>MonDiscord#1234</span>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" id="name" placeholder="Votre nom" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="Votre email" required>
+                    </div>
+                    <div class="form-group">
+                        <select id="subject">
+                            <option value="">Sujet</option>
+                            <option value="collaboration">Collaboration</option>
+                            <option value="question">Question</option>
+                            <option value="feedback">Feedback</option>
+                            <option value="other">Autre</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" placeholder="Votre message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Envoyer</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>À propos</h3>
+                    <p>Développeur de jeux vidéo passionné, créant des expériences uniques et immersives.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Liens rapides</h3>
+                    <ul>
+                        <li><a href="#games">Jeux</a></li>
+                        <li><a href="#events">Événements</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Suivez-moi</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 GameDev Portfolio. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Game Modal -->
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modalBody">
+                <!-- Modal content will be dynamically loaded -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
