@@ -1,6 +1,6 @@
-# GameDev Portfolio
+# Abcxrdev Portfolio
 
-Un site web portfolio pour développeur de jeux vidéo avec gestion de projets, système de commentaires, et événements.
+Site web portfolio de Abcxrdev, développeur de jeux vidéo, avec gestion de projets, système de commentaires, et événements.
 
 ## Fonctionnalités
 
@@ -61,31 +61,18 @@ Le style est défini dans `css/style.css`. Les variables CSS principales sont d�
 
 ## Déploiement sur GitHub Pages
 
-### Méthode 1 : Via l'interface GitHub
+Le site est déployé sur GitHub Pages et accessible à : https://abcxrdev.github.io
 
-1. Créez un nouveau repository sur GitHub
-2. Uploadez les fichiers du projet
-3. Allez dans Settings > Pages
-4. Sélectionnez la branche `main` et le dossier `/root`
-5. Votre site sera disponible à `https://votre-username.github.io/nom-du-repo`
+### Configuration
 
-### Méthode 2 : Via Git CLI
-
-```bash
-# Ajoutez le remote
-git remote add origin https://github.com/votre-username/game-portfolio.git
-
-# Push les modifications
-git branch -M main
-git push -u origin main
-```
-
-Ensuite configurez GitHub Pages dans les settings du repository.
+1. Allez dans Settings > Pages du repository
+2. Sélectionnez la branche `main` et le dossier `/root`
+3. Le site est automatiquement déployé
 
 ## Structure du projet
 
 ```
-game-portfolio/
+abcxrdev.github.io/
 ├── index.html          # Page principale
 ├── css/
 │   └── style.css      # Styles
@@ -112,3 +99,9 @@ Ce projet est libre d'utilisation pour votre portfolio personnel.
 ## Contact
 
 Pour toute question ou suggestion, n'hésitez pas à me contacter via le formulaire sur le site.
+
+## Auteur
+
+**Abcxrdev** - Développeur de jeux vidéo
+- GitHub : https://github.com/aboubacarouacho-oss
+- itch.io : https://aboubacarouacho-oss.itch.io
