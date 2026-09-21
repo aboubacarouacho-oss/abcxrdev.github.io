@@ -5,7 +5,7 @@ const games = [
         title: "Space Shooter",
         description: "Un jeu de tir spatial dynamique avec des vagues d'ennemis et des power-ups excitants.",
         status: "finished",
-        rating: 0,
+        rating: 4.5,
         image: "🚀",
         platforms: [
             { name: "itch.io", url: "https://aboubacarouacho-oss.itch.io/spaceshooter", icon: "fa-gamepad" }

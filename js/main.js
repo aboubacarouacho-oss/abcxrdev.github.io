@@ -10,6 +10,10 @@ const closeBtn = document.querySelector('.close');
 const contactForm = document.getElementById('contactForm');
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
+const themeToggle = document.getElementById('themeToggle');
+const searchInput = document.getElementById('searchInput');
+const platformFilter = document.getElementById('platformFilter');
+const ratingFilter = document.getElementById('ratingFilter');
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,20 +22,22 @@ document.addEventListener('DOMContentLoaded', () => {
     renderBlog();
     renderGallery();
     setupEventListeners();
+    initializeTheme();
+    initializeScrollAnimations();
 });
 
 // Render Games
 function renderGames(filter) {
-    gamesGrid.innerHTML = '';
-    
-    const filteredGames = filter === 'all' 
-        ? games 
-        : games.filter(game => game.status === filter);
-    
-    filteredGames.forEach(game => {
-        const gameCard = createGameCard(game);
-        gamesGrid.appendChild(gameCard);
+    // Update active filter button
+    filterButtons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.filter === filter) {
+            btn.classList.add('active');
+        }
     });
+
+    // Apply all filters
+    applyFilters();
 }
 
 function createGameCard(game) {
@@ -63,6 +69,60 @@ function createGameCard(game) {
     return card;
 }
 
+// Apply All Filters
+function applyFilters() {
+    const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+    const platform = platformFilter ? platformFilter.value : 'all';
+    const minRating = ratingFilter ? parseInt(ratingFilter.value) : 0;
+    const activeStatusFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+
+    const filteredGames = games.filter(game => {
+        // Status filter
+        if (activeStatusFilter !== 'all' && game.status !== activeStatusFilter) {
+            return false;
+        }
+
+        // Search filter
+        if (searchTerm && !game.title.toLowerCase().includes(searchTerm) && 
+            !game.description.toLowerCase().includes(searchTerm)) {
+            return false;
+        }
+
+        // Platform filter
+        if (platform !== 'all') {
+            const hasPlatform = game.platforms.some(p => 
+                p.name.toLowerCase().includes(platform) || 
+                p.url.toLowerCase().includes(platform)
+            );
+            if (!hasPlatform) return false;
+        }
+
+        // Rating filter
+        if (minRating > 0 && game.rating < minRating) {
+            return false;
+        }
+
+        return true;
+    });
+
+    // Re-render with filtered games
+    gamesGrid.innerHTML = '';
+    filteredGames.forEach(game => {
+        const gameCard = createGameCard(game);
+        gamesGrid.appendChild(gameCard);
+    });
+
+    // Add animations to new game cards
+    setTimeout(() => {
+        const gameCards = document.querySelectorAll('.game-card');
+        gameCards.forEach((card, index) => {
+            card.classList.add('scale-in');
+            card.style.transitionDelay = `${index * 0.1}s`;
+        });
+        initializeScrollAnimations();
+    }, 100);
+}
+
 function generateStars(rating) {
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 >= 0.5;
@@ -87,11 +147,11 @@ function generateStars(rating) {
 // Render Events
 function renderEvents() {
     eventsGrid.innerHTML = '';
-    
+
     events.forEach(event => {
         const eventCard = document.createElement('div');
         eventCard.className = 'event-card';
-        
+
         eventCard.innerHTML = `
             <div class="event-type">${event.type}</div>
             <h3 class="event-title">${event.title}</h3>
@@ -99,19 +159,29 @@ function renderEvents() {
             <p class="event-description">${event.description}</p>
             <a href="${event.link}" class="event-link">En savoir plus →</a>
         `;
-        
+
         eventsGrid.appendChild(eventCard);
     });
+
+    // Add animations to event cards
+    setTimeout(() => {
+        const eventCards = document.querySelectorAll('.event-card');
+        eventCards.forEach((card, index) => {
+            card.classList.add('slide-in-left');
+            card.style.transitionDelay = `${index * 0.1}s`;
+        });
+        initializeScrollAnimations();
+    }, 100);
 }
 
 // Render Blog
 function renderBlog() {
     blogGrid.innerHTML = '';
-    
+
     blogPosts.forEach(post => {
         const blogCard = document.createElement('div');
         blogCard.className = 'blog-card';
-        
+
         blogCard.innerHTML = `
             <div class="blog-image">${post.image}</div>
             <div class="blog-content">
@@ -121,28 +191,48 @@ function renderBlog() {
                 <a href="#" class="blog-link">Lire l'article →</a>
             </div>
         `;
-        
+
         blogGrid.appendChild(blogCard);
     });
+
+    // Add animations to blog cards
+    setTimeout(() => {
+        const blogCards = document.querySelectorAll('.blog-card');
+        blogCards.forEach((card, index) => {
+            card.classList.add('slide-in-right');
+            card.style.transitionDelay = `${index * 0.1}s`;
+        });
+        initializeScrollAnimations();
+    }, 100);
 }
 
 // Render Gallery
 function renderGallery() {
     galleryGrid.innerHTML = '';
-    
+
     galleryItems.forEach(item => {
         const galleryItem = document.createElement('div');
         galleryItem.className = 'gallery-item';
         galleryItem.title = item.title;
-        
+
         galleryItem.innerHTML = item.image;
-        
+
         galleryItem.addEventListener('click', () => {
             alert(`Image: ${item.title}`);
         });
-        
+
         galleryGrid.appendChild(galleryItem);
     });
+
+    // Add animations to gallery items
+    setTimeout(() => {
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        galleryItems.forEach((item, index) => {
+            item.classList.add('fade-in');
+            item.style.transitionDelay = `${index * 0.05}s`;
+        });
+        initializeScrollAnimations();
+    }, 100);
 }
 
 // Setup Event Listeners
@@ -150,11 +240,30 @@ function setupEventListeners() {
     // Filter buttons
     filterButtons.forEach(btn => {
         btn.addEventListener('click', () => {
-            filterButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+            // Clear search when filter is clicked
+            if (searchInput) {
+                searchInput.value = '';
+            }
             renderGames(btn.dataset.filter);
         });
     });
+
+    // Search functionality
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            applyFilters();
+        });
+    }
+
+    // Advanced filters
+    if (platformFilter) {
+        platformFilter.addEventListener('change', applyFilters);
+    }
+
+    if (ratingFilter) {
+        ratingFilter.addEventListener('change', applyFilters);
+    }
     
     // Close modal
     closeBtn.addEventListener('click', closeModal);
@@ -170,6 +279,7 @@ function setupEventListeners() {
     // Mobile menu
     hamburger.addEventListener('click', () => {
         navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
     });
     
     // Smooth scrolling
@@ -322,13 +432,120 @@ function handleContactForm(e) {
     contactForm.reset();
 }
 
-// Navigation active state
+// Theme Toggle
+function initializeTheme() {
+    // Check for saved theme preference or default to dark
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
+    
+    // Add event listener for theme toggle
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+    }
+}
+
+function setTheme(theme) {
+    const body = document.body;
+    const icon = themeToggle?.querySelector('i');
+    
+    if (theme === 'light') {
+        body.classList.add('light-theme');
+        if (icon) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+    } else {
+        body.classList.remove('light-theme');
+        if (icon) {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    }
+    
+    localStorage.setItem('theme', theme);
+}
+
+function toggleTheme() {
+    const body = document.body;
+    const currentTheme = body.classList.contains('light-theme') ? 'light' : 'dark';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+}
+
+// Scroll Animations
+function initializeScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    // Observe elements with animation classes
+    const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in');
+    animatedElements.forEach(el => observer.observe(el));
+
+    // Add animation classes to game cards, events, blog posts, etc.
+    setTimeout(() => {
+        addAnimationClasses();
+    }, 100);
+}
+
+function addAnimationClasses() {
+    // Add animations to game cards
+    const gameCards = document.querySelectorAll('.game-card');
+    gameCards.forEach((card, index) => {
+        card.classList.add('scale-in');
+        card.style.transitionDelay = `${index * 0.1}s`;
+    });
+
+    // Add animations to event cards
+    const eventCards = document.querySelectorAll('.event-card');
+    eventCards.forEach((card, index) => {
+        card.classList.add('slide-in-left');
+        card.style.transitionDelay = `${index * 0.1}s`;
+    });
+
+    // Add animations to blog cards
+    const blogCards = document.querySelectorAll('.blog-card');
+    blogCards.forEach((card, index) => {
+        card.classList.add('slide-in-right');
+        card.style.transitionDelay = `${index * 0.1}s`;
+    });
+
+    // Add animations to gallery items
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    galleryItems.forEach((item, index) => {
+        item.classList.add('fade-in');
+        item.style.transitionDelay = `${index * 0.05}s`;
+    });
+
+    // Re-initialize observer for new elements
+    initializeScrollAnimations();
+}
+
+// Navigation active state and scroll effect
 window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-link');
-    
+
+    // Navbar scroll effect
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+
+    // Active link highlighting
     let current = '';
-    
+
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
@@ -336,7 +553,7 @@ window.addEventListener('scroll', () => {
             current = section.getAttribute('id');
         }
     });
-    
+
     navLinks.forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('href').slice(1) === current) {

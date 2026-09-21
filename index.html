@@ -22,10 +22,15 @@
                 <li><a href="#gallery" class="nav-link">Galerie</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
     </nav>
@@ -33,7 +38,7 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="container">
-            <div class="hero-content">
+            <div class="hero-content fade-in">
                 <h1>Bienvenue sur le portfolio de Abcxrdev</h1>
                 <p>Développeur de jeux vidéo passionné. Découvrez mes créations comme Space Shooter et mes projets en cours comme PoliceVSCriminel.</p>
                 <div class="hero-buttons">
@@ -55,6 +60,36 @@
                 <button class="filter-btn" data-filter="finished">Finis</button>
                 <button class="filter-btn" data-filter="development">En développement</button>
                 <button class="filter-btn" data-filter="stopped">Arrêtés</button>
+            </div>
+
+            <!-- Advanced Filters -->
+            <div class="advanced-filters">
+                <div class="filter-group">
+                    <label for="platformFilter">Plateforme:</label>
+                    <select id="platformFilter">
+                        <option value="all">Toutes</option>
+                        <option value="itch.io">itch.io</option>
+                        <option value="google-play">Google Play</option>
+                        <option value="app-store">App Store</option>
+                        <option value="microsoft-store">Microsoft Store</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="ratingFilter">Note minimale:</label>
+                    <select id="ratingFilter">
+                        <option value="0">Toutes</option>
+                        <option value="4">4+ étoiles</option>
+                        <option value="3">3+ étoiles</option>
+                        <option value="2">2+ étoiles</option>
+                        <option value="1">1+ étoiles</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Rechercher un jeu..." class="search-input">
+                <i class="fas fa-search search-icon"></i>
             </div>
 
             <!-- Games Grid -->
